@@ -1,0 +1,73 @@
+TAG: gtblatpipeline-5-1-5-1
+DATE: 10/08/2013
+STAFF: dbm
+CHANGES:
+1) gtblatpipeline.sh: Use NS_DATA_LOADS namespace
+
+TAG: gtblatpipeline-5-1-4-1
+DATE: 08-06-2013
+STAFF: sc
+CHANGES: copied psl_gff_GT1.pl from retired blatpipeline
+
+TAG: gtblatpipeline-4-4-2-1
+DATE: 02-16-2012
+STAFF: sc
+CHANGES: fixed bug in gtblatpipeline.initial.sh that was copying the 
+  wrong file to the master (psl instead of gff)
+
+TAG: gtblatpipeline-4-4-0-1
+TAG: gtblatpipeline-4-3-5-1
+DATE: 08-03-2010
+STAFF: sc
+CHANGES: TR9796 process control change for gbgtfilter so it
+ may run independent of gtblatpipeline
+
+TAG: gtblatpipeline-4-3-0-7
+DATE: 07-14-2009
+STAFF: sc
+CHANGES: TR7493
+1) gtblatpipeline.initial.sh - version of gtblatpipeline.sh
+   without running gbgtfilter and without process control
+
+TAG: gtblatpipeline-4-3-0-6
+DATE: 06-22-2009
+STAFF: sc
+CHANGES: TR7493
+1) added setting of process control flag when gtblatpipeline
+   has no files to process
+
+TAG: gtblatpipeline-4-3-0-5
+DATE: 06-22-2009
+STAFF: sc
+CHANGES: TR7493
+1) gtblatpipeline.sh - fixed return of non-zero exit code
+   when no files to process
+
+TAG: gtblatpipeline-4-3-0-4
+TAG: gtblatpipeline-4-3-0-3
+DATE: 06-19-2009
+STAFF: sc
+CHANGES: TR7493
+1) gtblatpipeline.sh - added process control
+
+TAG: gtblatpipeline-4-3-0-2
+DATE: 06-08-2009
+STAFF: sc
+CHANGES: TR7493
+1) gtblatpipeline.config.default - added 
+a) MASTER_GFF_FILE
+b) TRUNCATE_MASTER
+2) gtblatpipeline.sh - added testing for TRUNCATE_MASTER
+   and appending MASTER_GFF_FILE
+
+TAG: gtblatpipeline-4-3-0-1
+DATE: 04-24-2009
+STAFF: sc
+CHANGES: TR7493
+1) gtblatpipeline.sh - Add call to gbgtfilter.sh prior
+   to running the blat pipeline
+
+TAG: gtblatpipeline-4-2-0-1
+DATE: 03-12-2009
+STAFF: sc
+CHANGES: TR7493 - Gene Trap Less Filling

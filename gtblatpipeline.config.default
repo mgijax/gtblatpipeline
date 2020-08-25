@@ -1,0 +1,154 @@
+#format: sh
+#######################################################################
+#                                                                     #
+# Configuration for gtblatpipeline
+#                                                                     #
+#######################################################################
+
+#  If the MGICONFIG environment variable does not have a local override,
+#  use the default "live" settings.
+#
+if [ "${MGICONFIG}" = "" ]
+then
+    MGICONFIG=/usr/local/mgi/live/mgiconfig
+    export MGICONFIG
+fi
+
+. ${MGICONFIG}/master.config.sh
+
+########################################################
+# DLA Parameters
+########################################################
+
+# Full path the the logs, reports, and archive directories
+FILEDIR=${DATALOADSOUTPUT}/genbank/gtblatpipeline
+
+LOGDIR=${FILEDIR}/logs
+RPTDIR=${FILEDIR}/reports
+OUTPUTDIR=${FILEDIR}/output
+ARCHIVEDIR=${FILEDIR}/archive
+WORK_FASTA_FILE=${OUTPUTDIR}/sequences.fa
+export FILEDIR LOGDIR RPTDIR OUTPUTDIR ARCHIVEDIR WORK_FASTA_FILE
+
+# path to input file directory when APP_RADAR_INPUT=false
+INPUTDIR=${DATADOWNLOADS}
+
+# full path to one or more input files when APP_RADAR_INPUT=false
+APP_INFILES=...
+
+# get input files from RADAR if 'true'
+APP_RADAR_INPUT=true
+
+APP_CAT_METHOD="/usr/local/bin/cat"
+
+export INPUTDIR APP_INFILES APP_RADAR_INPUT APP_CAT_METHOD
+
+# data download directory
+DOWNLOADDIR=${DATADOWNLOADS}/ftp.ncbi.nih.gov/gtblatpipeline/output
+
+# file counter, for file naming
+FILECOUNTER=${DOWNLOADDIR}/fileCounter
+
+export DOWNLOADDIR FILECOUNTER 
+
+#  Complete path name of the log files
+LOG_PROC=${LOGDIR}/gtblatpipeline.proc.log
+LOG_DIAG=${LOGDIR}/gtblatpipeline.diag.log
+LOG_CUR=${LOGDIR}/gtblatpipeline.cur.log
+LOG_VAL=${LOGDIR}/gtblatpipeline.val.log
+
+export LOG_PROC LOG_DIAG LOG_CUR LOG_VAL
+
+# jobstream name to register in radar
+JOBSTREAM=gtblatpipeline
+
+# get files of this type from radar if input not on command line
+# this is output of gbgtfilter
+FILETYPE=GenBank_GTBlat
+
+export JOBSTREAM FILETYPE
+
+# log files in radar with these file types:
+
+# Gene Trap Coordinate Load input; single best hits
+FILETYPE_COORDLOAD=GenBank_GTCoordLoad
+
+# Gene Trap ALO Load; single best hits 
+FILETYPE_GTLOAD_SGL=GenBank_GTLoad_Single
+
+# Gene Trap ALO Load; best hits
+FILETYPE_GTLOAD_BEST=GenBank_GTLoad_Best
+
+export FILETYPE_COORDLOAD FILETYPE_GTLOAD_SGL FILETYPE_GTLOAD_BEST
+
+########################################################
+# BLAT parameters
+########################################################
+# The blat client
+GFCLIENT=/usr/local/bin/gfClient
+# The unix host
+GFHOST=hobbiton
+# The port - 9036=Build 36, 9037=Build 37
+GFPORT=9037
+# other stuff
+GFROOT=/
+GFARGS=-nohead
+
+export GFCLIENT GFHOST GFPORT GFROOT GFARGS
+
+# BLAT output file
+ALL_HITS_FILE=${OUTPUTDIR}/all_blat_hits.psl
+
+export ALL_HITS_FILE
+
+########################################################
+# PSLFILTER parameters
+########################################################
+
+# pslReps path
+PSLFILTER=/usr/local/bin/pslReps
+PSLARGS=-nohead
+
+export PSLFILTER PSLARGS
+
+# PSLFILTER output
+BEST_HITS_FILE=${OUTPUTDIR}/best_blat_hits.psl
+BEST_HITS_RPT=${OUTPUTDIR}/best_blat_hits.psr
+
+export BEST_HITS_FILE BEST_HITS_RPT
+
+########################################################
+# BOBSCRIPT parameters
+########################################################
+BOBSCRIPT=${GTBLATPIPELINE}/bin/psl_gff_GT1.pl
+BOBLABELARG=gtblatpipeline
+PERL=/usr/local/bin/perl
+
+export BOBSCRIPT BOBLABELARG PERL
+
+# BOBSCRIPT output
+# all output file names determined by BOBSCRIPT and based on 
+# input file name, we need to configure in order to move to
+# downloads directory and log in radar
+BEST_HITS_SGL_FILE=${OUTPUTDIR}/best_blat_hits_single_Gbrowse.gff
+
+# master file of all gene trap best single  hits
+MASTER_GFF_FILE=${DOWNLOADDIR}/best_blat_hits_single_Gbrowse.master.gff
+
+# if true, truncate the master, typically done on a new genome build
+TRUNCATE_MASTER=false
+
+export BEST_HITS_SGL_FILE MASTER_GFF_FILE TRUNCATE_MASTER
+
+#  The name of the load for the subject of an email notification
+MAIL_LOADNAME="Gene Trap BLAT Pipeline"
+
+#  Recipient list for mailing the curation log file (comma-separated)
+MAIL_LOG_CUR="mgiadmin"
+
+export MAIL_LOADNAME MAIL_LOG_CUR
+
+# where this product is installed
+INSTALLDIR=${GTBLATPIPELINE}
+
+export INSTALLDIR
