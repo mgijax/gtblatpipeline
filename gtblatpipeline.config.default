@@ -31,15 +31,15 @@ WORK_FASTA_FILE=${OUTPUTDIR}/sequences.fa
 export FILEDIR LOGDIR RPTDIR OUTPUTDIR ARCHIVEDIR WORK_FASTA_FILE
 
 # path to input file directory when APP_RADAR_INPUT=false
-INPUTDIR=${DATADOWNLOADS}
+INPUTDIR=/mgi/all/wts_projects/13300/13349/Build39/GeneTraps
 
 # full path to one or more input files when APP_RADAR_INPUT=false
-APP_INFILES=...
+APP_INFILES=${INPUTDIR}/fastaFormatGenetraps.txt
 
 # get input files from RADAR if 'true'
-APP_RADAR_INPUT=true
+APP_RADAR_INPUT=false
 
-APP_CAT_METHOD="/usr/local/bin/cat"
+APP_CAT_METHOD="/usr/bin/cat"
 
 export INPUTDIR APP_INFILES APP_RADAR_INPUT APP_CAT_METHOD
 
@@ -87,9 +87,9 @@ export FILETYPE_COORDLOAD FILETYPE_GTLOAD_SGL FILETYPE_GTLOAD_BEST
 # The blat client
 GFCLIENT=/usr/local/bin/gfClient
 # The unix host
-GFHOST=hobbiton
+GFHOST=bhmgidevapp01
 # The port - 9036=Build 36, 9037=Build 37
-GFPORT=9037
+GFPORT=9039
 # other stuff
 GFROOT=/
 GFARGS=-nohead
@@ -122,7 +122,7 @@ export BEST_HITS_FILE BEST_HITS_RPT
 ########################################################
 BOBSCRIPT=${GTBLATPIPELINE}/bin/psl_gff_GT1.pl
 BOBLABELARG=gtblatpipeline
-PERL=/usr/local/bin/perl
+PERL=/usr/bin/perl
 
 export BOBSCRIPT BOBLABELARG PERL
 
