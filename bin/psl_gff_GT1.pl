@@ -40,6 +40,7 @@ unless ($size eq 2) {
 
 $pslfile =~ /(.*)\.psl/;
 my $root = $1;
+print "SG - name of pslfile from regex: $pslfile root: $root\n"; 
 my $notefile = $root.'_notes.txt';
 my $singleexonfile = $root.'_single.gff';
 my $singlegbrowsefile = $root.'_single_Gbrowse.gff';
@@ -90,8 +91,11 @@ while ($line = <PSL>) {
 	chomp $line;
 	$seqID = '';
 	($match,  $mismatch,  $repmatch,  $Ns,  $QgapCount,  $QgapBases,  $TgapCount,  $TgapBases,  $strand,  $Qname,  $Qsize,  $Qstart,  $Qend,  $Tname,  $Tsize,  $Tstart,  $Tend,  $blockCount,  $blockSizes,  $qStarts,  $tStarts) = split /\t/, $line;
-	$Qname =~ /\|gb\|(.*)\..\|/;
+        print "SG - Ctr Incr Qname before regex: $Qname\n";
+	#$Qname =~ /\|gb\|(.*)\..\|/; this is the old regex - replaced by:
+        $Qname =~ /^(.*?)\./;
 	$seqID = $1;
+        print "SG - Ctr Incr Qname from regex: $Qname seqID: $seqID\n";
 	$seqIDs{$seqID} ++;
 }
 
@@ -138,12 +142,17 @@ while ($line = <PSL>) {
 	$start = '';
 	$end = '';
 	($match,  $mismatch,  $repmatch,  $Ns,  $QgapCount,  $QgapBases,  $TgapCount,  $TgapBases,  $strand,  $Qname,  $Qsize,  $Qstart,  $Qend,  $Tname,  $Tsize,  $Tstart,  $Tend,  $blockCount,  $blockSizes,  $qStarts,  $tStarts) = split /\t/, $line;
+        print "SG - Tname before regex: $Tname\n";
 	$Tname =~ /chr(.+)/;
 	$chr = $1;
+        print "SG - Tname from regex: $Tname chr: $chr\n";
 	$start = $Tstart;
 	$end = $Tend -1;
-	$Qname =~ /\|gb\|(.*)\..\|/;
+        print "SG - Qname before regex: $Qname\n";
+	#$Qname =~ /\|gb\|(.*)\..\|/; this is the old regex, replaced by:
+        $Qname =~ /^(.*?)\./;
 	$seqID = $1;
+        print "SG - Qname from regex: $Qname seqID: $seqID\n";
 	$count_multi_seqID{$seqID} ++; # this increments the counter for the current seqID
 	#print DEBUG "after increment Qname $Qname\t seqID $seqID\tcount_multi_seqID{$seqID} $count_multi_seqID{$seqID}\n"; # seems right here
 
